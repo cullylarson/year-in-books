@@ -6,6 +6,8 @@ export function toSeconds(frames: number, fps: number): number {
   return frames / fps;
 }
 
+/** Returns an even value. Useful for computing dimensions for a video where the
+ * values need to be even. */
 export function clampEven(value: number): number {
   const options = [
     Math.floor(value),
