@@ -1,7 +1,7 @@
 import { z } from "zod";
 import * as Poppins from "@remotion/google-fonts/Poppins";
 import { Book } from "./OneBook";
-import { BookList } from "./BookList";
+import { BookYear } from "./BookYear";
 
 Poppins.loadFont();
 
@@ -114,7 +114,8 @@ const books: Book[] = [
 
 export const Books2024: React.FC<z.infer<typeof booksSchema>> = () => {
   return (
-    <BookList
+    <BookYear
+      title="2024 in Books"
       books={books}
       audioPath="music/lofi-song-room-by-lofium-242714.mp3"
     />

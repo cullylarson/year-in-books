@@ -1,13 +1,5 @@
 import { Fragment } from "react";
-import {
-  AbsoluteFill,
-  useVideoConfig,
-  staticFile,
-  Audio,
-  useCurrentFrame,
-  interpolate,
-  Easing,
-} from "remotion";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import { TransitionSeries, springTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { toFrames } from "./lib/frames";
@@ -15,45 +7,18 @@ import { Book, OneBook } from "./OneBook";
 
 type BookListProps = {
   books: Book[];
-  /** Don't call staticFile on this. */
-  audioPath: string;
-  maxVolume?: number;
 };
 
-export function BookList({ books, audioPath, maxVolume = 0.7 }: BookListProps) {
-  const frame = useCurrentFrame();
+export function BookList({ books }: BookListProps) {
   const { fps } = useVideoConfig();
   const { durationInFrames } = useVideoConfig();
 
-  const transitionInFrames = toFrames(1, fps);
+  const transitionInFrames = toFrames(1.5, fps);
   const numBooks = books.length;
   const durationPerBook = durationInFrames / numBooks + transitionInFrames;
 
-  const volumeFadeOutInFrames = toFrames(5, fps);
-  const volume = interpolate(
-    frame,
-    [0, durationInFrames - volumeFadeOutInFrames, durationInFrames],
-    [maxVolume, maxVolume, 0],
-    {
-      easing: Easing.linear,
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    },
-  );
-
   return (
-    <AbsoluteFill
-      className="bg-white"
-      style={{
-        fontSize: "8px",
-      }}
-    >
-      <Audio
-        loop
-        // eslint-disable-next-line @remotion/volume-callback
-        volume={volume}
-        src={staticFile(audioPath)}
-      />
+    <AbsoluteFill className="bg-white">
       <TransitionSeries>
         {books.map((book, i) => (
           <Fragment key={i}>

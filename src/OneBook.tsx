@@ -14,6 +14,7 @@ export function OneBook({ title, author, imagePath, num }: Book) {
       <AbsoluteFill>
         {/* This is a background that will show behind the book cover, if the book cover image doesn't take up the whole background. It's just a blurred version of the book cover image, so that it will be a color similar to the image itself. */}
         <Img
+          pauseWhenLoading
           className="w-full h-full"
           style={{
             filter: "blur(200px)",
@@ -22,13 +23,13 @@ export function OneBook({ title, author, imagePath, num }: Book) {
         />
       </AbsoluteFill>
       <div className="absolute inset-0 flex justify-center items-center">
-        <Img className="w-full h-auto" src={staticFile(imagePath)} />
+        <Img
+          pauseWhenLoading
+          className="w-full h-auto"
+          src={staticFile(imagePath)}
+        />
       </div>
-      <AbsoluteFill
-        style={{
-          fontFamily: "Poppins",
-        }}
-      >
+      <AbsoluteFill>
         <div
           className="flex absolute"
           style={{
