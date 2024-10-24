@@ -1,10 +1,9 @@
 {
   "name": "year-in-books",
   "version": "1.0.0",
-  "description": "My Remotion video",
+  "description": "",
   "repository": {},
-  "license": "UNLICENSED",
-  "private": true,
+  "license": "MIT",
   "dependencies": {
     "@remotion/cli": "4.0.223",
     "@remotion/google-fonts": "^4.0.223",
