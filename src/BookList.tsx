@@ -17,9 +17,10 @@ type BookListProps = {
   books: Book[];
   /** Don't call staticFile on this. */
   audioPath: string;
+  maxVolume?: number;
 };
 
-export function BookList({ books, audioPath }: BookListProps) {
+export function BookList({ books, audioPath, maxVolume = 0.7 }: BookListProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { durationInFrames } = useVideoConfig();
@@ -32,7 +33,7 @@ export function BookList({ books, audioPath }: BookListProps) {
   const volume = interpolate(
     frame,
     [0, durationInFrames - volumeFadeOutInFrames, durationInFrames],
-    [1, 1, 0],
+    [maxVolume, maxVolume, 0],
     {
       easing: Easing.linear,
       extrapolateLeft: "clamp",

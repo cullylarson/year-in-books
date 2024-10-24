@@ -51,6 +51,7 @@ export function OneBook({ title, author, imagePath, num }: Book) {
               {title}
             </h1>
             <h2
+              className="text-right"
               style={{
                 fontSize: "2.1em",
               }}
