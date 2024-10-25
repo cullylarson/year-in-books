@@ -9,13 +9,18 @@ type BookListProps = {
   books: Book[];
 };
 
+// TODO the last book scene is too short, and made shorter because of the
+// transition overlap
+
 export function BookList({ books }: BookListProps) {
   const { fps } = useVideoConfig();
   const { durationInFrames } = useVideoConfig();
 
   const transitionInFrames = toFrames(1.5, fps);
   const numBooks = books.length;
-  const durationPerBook = durationInFrames / numBooks + transitionInFrames;
+  const durationPerBook = Math.floor(
+    durationInFrames / numBooks + transitionInFrames,
+  );
 
   return (
     <AbsoluteFill className="bg-white">

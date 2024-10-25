@@ -15,6 +15,8 @@ export const bookSchema = z.object({
   author: z.string(),
   /** Don't call staticFile on this. */
   imagePath: z.string(),
+  dateFinished: z.date(),
+  numPages: z.number(),
 });
 
 export type Book = z.infer<typeof bookSchema>;
@@ -28,8 +30,6 @@ export function OneBook({ title, author, imagePath, num }: Book) {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  console.log({ frame, scale });
 
   return (
     <div>

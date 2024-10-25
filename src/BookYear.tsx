@@ -14,23 +14,30 @@ import { BookList } from "./BookList";
 import { springTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { Intro } from "./Intro";
+import { Outro } from "./Outro";
 
 export const bookYearSchema = z.object({
-  title: z.string(),
   books: bookSchema.array(),
   /** Don't call staticFile on this. */
   audioPath: z.string(),
-  introDurationInFrames: z.number(),
-  introTransitionInFrames: z.number(),
+  intro: z.object({
+    title: z.string(),
+    durationInFrames: z.number(),
+    transitionInFrames: z.number(),
+  }),
+  outro: z.object({
+    title: z.string(),
+    durationInFrames: z.number(),
+    transitionInFrames: z.number(),
+  }),
   maxVolume: z.number().optional(),
 });
 
 export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
   books,
-  title,
   audioPath,
-  introDurationInFrames,
-  introTransitionInFrames,
+  intro,
+  outro,
   maxVolume = 0.4,
 }) => {
   const frame = useCurrentFrame();
@@ -38,7 +45,11 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
   const { durationInFrames } = useVideoConfig();
 
   const bookListDurationInFrames =
-    durationInFrames - introDurationInFrames + introTransitionInFrames;
+    durationInFrames -
+    intro.durationInFrames +
+    intro.transitionInFrames -
+    outro.durationInFrames +
+    outro.transitionInFrames;
 
   const volumeFadeOutInFrames = toFrames(5, fps);
   const volume = interpolate(
@@ -66,15 +77,22 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
         src={staticFile(audioPath)}
       />
       <TransitionSeries>
-        <TransitionSeries.Sequence durationInFrames={introDurationInFrames}>
-          <Intro title={title} books={books} />
+        <TransitionSeries.Sequence durationInFrames={intro.durationInFrames}>
+          <Intro title={intro.title} books={books} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({ durationInFrames: introTransitionInFrames })}
+          timing={springTiming({ durationInFrames: intro.transitionInFrames })}
         />
         <TransitionSeries.Sequence durationInFrames={bookListDurationInFrames}>
           <BookList books={books} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition
+          presentation={fade()}
+          timing={springTiming({ durationInFrames: outro.transitionInFrames })}
+        />
+        <TransitionSeries.Sequence durationInFrames={outro.durationInFrames}>
+          <Outro title={outro.title} books={books} />
         </TransitionSeries.Sequence>
       </TransitionSeries>
     </AbsoluteFill>
