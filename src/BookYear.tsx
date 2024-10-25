@@ -7,35 +7,38 @@ import {
   interpolate,
   Easing,
 } from "remotion";
+import { z } from "zod";
 import { toFrames } from "./lib/frames";
-import { Book } from "./OneBook";
+import { bookSchema } from "./OneBook";
 import { BookList } from "./BookList";
 import { springTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { Intro } from "./Intro";
 
-type BookYearProps = {
-  title: string;
-  books: Book[];
+export const bookYearSchema = z.object({
+  title: z.string(),
+  books: bookSchema.array(),
   /** Don't call staticFile on this. */
-  audioPath: string;
-  maxVolume?: number;
-};
+  audioPath: z.string(),
+  introDurationInFrames: z.number(),
+  introTransitionInFrames: z.number(),
+  maxVolume: z.number().optional(),
+});
 
-export function BookYear({
+export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
   books,
   title,
   audioPath,
+  introDurationInFrames,
+  introTransitionInFrames,
   maxVolume = 0.7,
-}: BookYearProps) {
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { durationInFrames } = useVideoConfig();
 
-  const transitionInFrames = toFrames(2, fps);
-  const introDurationInFrames = toFrames(4, fps) + transitionInFrames;
   const bookListDurationInFrames =
-    durationInFrames - introDurationInFrames + transitionInFrames;
+    durationInFrames - introDurationInFrames + introTransitionInFrames;
 
   const volumeFadeOutInFrames = toFrames(5, fps);
   const volume = interpolate(
@@ -68,7 +71,7 @@ export function BookYear({
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({ durationInFrames: transitionInFrames })}
+          timing={springTiming({ durationInFrames: introTransitionInFrames })}
         />
         <TransitionSeries.Sequence durationInFrames={bookListDurationInFrames}>
           <BookList books={books} />
@@ -76,4 +79,4 @@ export function BookYear({
       </TransitionSeries>
     </AbsoluteFill>
   );
-}
+};

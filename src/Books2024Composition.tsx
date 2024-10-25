@@ -1,11 +1,10 @@
-import { z } from "zod";
 import * as Poppins from "@remotion/google-fonts/Poppins";
 import { Book } from "./OneBook";
-import { BookYear } from "./BookYear";
+import { BookYear, bookYearSchema } from "./BookYear";
+import { clampEven, toFrames } from "./lib/frames";
+import { Composition } from "remotion";
 
 Poppins.loadFont();
-
-export const booksSchema = z.object({});
 
 const books: Book[] = [
   {
@@ -112,12 +111,35 @@ const books: Book[] = [
   },
 ];
 
-export const Books2024: React.FC<z.infer<typeof booksSchema>> = () => {
+const fps = 30;
+
+const ratio = 1080 / 1440;
+const height = 700;
+const width = clampEven(height * ratio);
+
+const introTransitionInFrames = toFrames(2, fps);
+const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
+
+const durationInFrames =
+  books.length * toFrames(3.2, fps) + introDurationInFrames;
+
+export function Books2024Composition() {
   return (
-    <BookYear
-      title="2024 in Books"
-      books={books}
-      audioPath="music/lofi-song-room-by-lofium-242714.mp3"
+    <Composition
+      id="2024"
+      component={BookYear}
+      durationInFrames={durationInFrames}
+      fps={fps}
+      height={height}
+      width={width}
+      schema={bookYearSchema}
+      defaultProps={{
+        title: "2024 in Books",
+        books,
+        audioPath: "music/lofi-song-room-by-lofium-242714.mp3",
+        introDurationInFrames,
+        introTransitionInFrames,
+      }}
     />
   );
-};
+}

@@ -28,11 +28,7 @@ function BookTile({ book, width, height }: BookTileProps) {
         height: `${height}px`,
       }}
     >
-      <Img
-        pauseWhenLoading
-        src={staticFile(book.imagePath)}
-        className="object-contain"
-      />
+      <Img src={staticFile(book.imagePath)} className="object-contain" />
     </div>
   );
 }

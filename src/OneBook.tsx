@@ -1,12 +1,15 @@
 import { AbsoluteFill, Img, staticFile } from "remotion";
+import { z } from "zod";
 
-export type Book = {
-  num: number;
-  title: string;
-  author: string;
+export const bookSchema = z.object({
+  num: z.number(),
+  title: z.string(),
+  author: z.string(),
   /** Don't call staticFile on this. */
-  imagePath: string;
-};
+  imagePath: z.string(),
+});
+
+export type Book = z.infer<typeof bookSchema>;
 
 export function OneBook({ title, author, imagePath, num }: Book) {
   return (
@@ -14,7 +17,6 @@ export function OneBook({ title, author, imagePath, num }: Book) {
       <AbsoluteFill>
         {/* This is a background that will show behind the book cover, if the book cover image doesn't take up the whole background. It's just a blurred version of the book cover image, so that it will be a color similar to the image itself. */}
         <Img
-          pauseWhenLoading
           className="w-full h-full"
           style={{
             filter: "blur(200px)",
@@ -23,11 +25,7 @@ export function OneBook({ title, author, imagePath, num }: Book) {
         />
       </AbsoluteFill>
       <div className="absolute inset-0 flex justify-center items-center">
-        <Img
-          pauseWhenLoading
-          className="w-full h-auto"
-          src={staticFile(imagePath)}
-        />
+        <Img className="w-full h-auto" src={staticFile(imagePath)} />
       </div>
       <AbsoluteFill>
         <div
