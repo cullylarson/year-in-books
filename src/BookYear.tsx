@@ -31,7 +31,7 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
   audioPath,
   introDurationInFrames,
   introTransitionInFrames,
-  maxVolume = 0.7,
+  maxVolume = 0.4,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();

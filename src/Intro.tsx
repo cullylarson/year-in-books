@@ -1,4 +1,11 @@
-import { Img, staticFile, useVideoConfig } from "remotion";
+import {
+  Easing,
+  Img,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import { Book } from "./OneBook";
 
 function fillArrayToLength<ArrayType>(
@@ -39,7 +46,8 @@ type IntroProps = {
 };
 
 export function Intro({ title, books }: IntroProps) {
-  const { width, height } = useVideoConfig();
+  const frame = useCurrentFrame();
+  const { width, height, durationInFrames } = useVideoConfig();
 
   const numBooks = books.length;
   const numColumns = Math.max(5, Math.ceil(Math.sqrt(numBooks)));
@@ -49,6 +57,12 @@ export function Intro({ title, books }: IntroProps) {
 
   const booksFilled = fillArrayToLength(books, numColumns * numRows);
 
+  const gridScale = interpolate(frame, [0, durationInFrames], [1, 1.2], {
+    easing: Easing.linear,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
   return (
     <div className="absolute inset-0 flex items-center justify-center">
       <div
@@ -56,6 +70,7 @@ export function Intro({ title, books }: IntroProps) {
         style={{
           gridTemplateColumns: `repeat(${numColumns}, 1fr)`,
           gridTemplateRows: `repeat(${numRows}, 1fr)`,
+          transform: `scale(${gridScale})`,
         }}
       >
         {booksFilled.map((b, i) => (
@@ -67,7 +82,8 @@ export function Intro({ title, books }: IntroProps) {
         <h1
           className="relative shadow-md text-gray-50 bold"
           style={{
-            fontSize: "6em",
+            fontSize: "8.5em",
+            fontFamily: "Berkshire Swash",
           }}
         >
           {title}

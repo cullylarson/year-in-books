@@ -1,4 +1,12 @@
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import {
+  AbsoluteFill,
+  Easing,
+  Img,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
 import { z } from "zod";
 
 export const bookSchema = z.object({
@@ -12,6 +20,17 @@ export const bookSchema = z.object({
 export type Book = z.infer<typeof bookSchema>;
 
 export function OneBook({ title, author, imagePath, num }: Book) {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+
+  const scale = interpolate(frame, [0, durationInFrames], [1, 1.05], {
+    easing: Easing.linear,
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  console.log({ frame, scale });
+
   return (
     <div>
       <AbsoluteFill>
@@ -25,7 +44,13 @@ export function OneBook({ title, author, imagePath, num }: Book) {
         />
       </AbsoluteFill>
       <div className="absolute inset-0 flex justify-center items-center">
-        <Img className="w-full h-auto" src={staticFile(imagePath)} />
+        <Img
+          className="w-full h-auto"
+          src={staticFile(imagePath)}
+          style={{
+            transform: `scale(${scale})`,
+          }}
+        />
       </div>
       <AbsoluteFill>
         <div

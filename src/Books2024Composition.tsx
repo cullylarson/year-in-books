@@ -1,10 +1,12 @@
 import * as Poppins from "@remotion/google-fonts/Poppins";
+import * as BerkshireSwash from "@remotion/google-fonts/BerkshireSwash";
 import { Book } from "./OneBook";
 import { BookYear, bookYearSchema } from "./BookYear";
 import { clampEven, toFrames } from "./lib/frames";
 import { Composition } from "remotion";
 
 Poppins.loadFont();
+BerkshireSwash.loadFont();
 
 const books: Book[] = [
   {
@@ -121,7 +123,7 @@ const introTransitionInFrames = toFrames(2, fps);
 const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
 
 const durationInFrames =
-  books.length * toFrames(3.2, fps) + introDurationInFrames;
+  books.length * toFrames(3.8, fps) + introDurationInFrames;
 
 export function Books2024Composition() {
   return (
