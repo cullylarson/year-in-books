@@ -61,11 +61,11 @@ export function Outro({ title, books }: OutroProps) {
             <span className="font-bold">
               {new Intl.NumberFormat("en-US").format(numBooks)}
             </span>{" "}
-            book{pluralEnd(numBooks)},{" "}
+            book{pluralEnd(numBooks)}.{" "}
             <span className="font-bold">
               {new Intl.NumberFormat("en-US").format(numPages)}
             </span>{" "}
-            page{pluralEnd(numPages)} read at{" "}
+            page{pluralEnd(numPages)}.{" "}
             <span className="font-bold">
               {new Intl.NumberFormat("en-US").format(pagesPerDay)}
             </span>{" "}
