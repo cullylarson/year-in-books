@@ -145,6 +145,22 @@ const books: Book[] = [
     dateFinished: new Date("2024-10-22"),
     numPages: 466,
   },
+  {
+    num: 18,
+    imagePath: "2024/18-the-wall.jpeg",
+    title: "The Wall",
+    author: "Marlen Haushofer",
+    dateFinished: new Date("2024-11-18"),
+    numPages: 238,
+  },
+  {
+    num: 19,
+    imagePath: "2024/19-infinite-jest.jpeg",
+    title: "Infinite Jest",
+    author: "David Foster Wallace",
+    dateFinished: new Date("2024-11-30"),
+    numPages: 1079,
+  },
 ];
 
 const fps = 30;
