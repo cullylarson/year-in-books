@@ -7,6 +7,8 @@ import { Book, OneBook } from "./OneBook";
 
 type BookListProps = {
   books: Book[];
+  /** How long the transition is before the next scene. We need to add this to
+   * the last book in order for it to display for the correct amount of time. */
   nextSceneTransitionInFrames: number;
   oneBookDurationInFrames: number;
 };
@@ -26,6 +28,8 @@ export function BookList({
         {books.map((book, i) => {
           const isLastBook = i === books.length - 1;
 
+          // need to add transition times because the scenes overlap during
+          // transitions
           const bookDurationInFrames = isLastBook
             ? oneBookDurationInFrames + nextSceneTransitionInFrames
             : oneBookDurationInFrames + transitionInFrames;
