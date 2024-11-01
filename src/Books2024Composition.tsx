@@ -169,10 +169,10 @@ const ratio = 1080 / 1440;
 const height = 700;
 const width = clampEven(height * ratio);
 
-const introTransitionInFrames = toFrames(2, fps);
+const introTransitionInFrames = toFrames(0.75, fps);
 const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
 
-const outroTransitionInFrames = toFrames(2, fps);
+const outroTransitionInFrames = toFrames(0.75, fps);
 const outroDurationInFrames = toFrames(10, fps);
 
 const individualBookDurationInFrames = toFrames(3.8, fps);

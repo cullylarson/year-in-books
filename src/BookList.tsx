@@ -1,27 +1,24 @@
 import { Fragment } from "react";
 import { AbsoluteFill, useVideoConfig } from "remotion";
-import { TransitionSeries, springTiming } from "@remotion/transitions";
+import { linearTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { toFrames } from "./lib/frames";
 import { Book, OneBook } from "./OneBook";
 
 type BookListProps = {
   books: Book[];
-  lastBookTransitionInFrames: number;
+  nextSceneTransitionInFrames: number;
   oneBookDurationInFrames: number;
 };
-
-// TODO You can see the intro "Year in Books" at the end of the transition,
-// while you see the first video. Maybe use linearTiming
 
 export function BookList({
   books,
   oneBookDurationInFrames,
-  lastBookTransitionInFrames,
+  nextSceneTransitionInFrames,
 }: BookListProps) {
   const { fps } = useVideoConfig();
 
-  const transitionInFrames = toFrames(1.5, fps);
+  const transitionInFrames = toFrames(0.5, fps);
 
   return (
     <AbsoluteFill className="bg-white">
@@ -30,7 +27,7 @@ export function BookList({
           const isLastBook = i === books.length - 1;
 
           const bookDurationInFrames = isLastBook
-            ? oneBookDurationInFrames + lastBookTransitionInFrames
+            ? oneBookDurationInFrames + nextSceneTransitionInFrames
             : oneBookDurationInFrames + transitionInFrames;
 
           return (
@@ -42,7 +39,7 @@ export function BookList({
               </TransitionSeries.Sequence>
               <TransitionSeries.Transition
                 presentation={fade()}
-                timing={springTiming({ durationInFrames: transitionInFrames })}
+                timing={linearTiming({ durationInFrames: transitionInFrames })}
               />
             </Fragment>
           );

@@ -11,7 +11,7 @@ import { z } from "zod";
 import { toFrames } from "./lib/frames";
 import { bookSchema } from "./OneBook";
 import { BookList } from "./BookList";
-import { springTiming, TransitionSeries } from "@remotion/transitions";
+import { linearTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { Intro } from "./Intro";
 import { Outro } from "./Outro";
@@ -82,7 +82,7 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({
+          timing={linearTiming({
             durationInFrames: scenes.intro.transitionInFrames,
           })}
         />
@@ -92,12 +92,12 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
           <BookList
             books={books}
             oneBookDurationInFrames={scenes.bookList.oneBookDurationInFrames}
-            lastBookTransitionInFrames={scenes.outro.transitionInFrames}
+            nextSceneTransitionInFrames={scenes.outro.transitionInFrames}
           />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({
+          timing={linearTiming({
             durationInFrames: scenes.outro.transitionInFrames,
           })}
         />
