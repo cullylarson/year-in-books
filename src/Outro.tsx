@@ -41,11 +41,11 @@ export function Outro({ title, books }: OutroProps) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-900 text-white">
-      <div className="p-6 flex flex-col gap-3">
+      <div className="p-6 flex flex-col gap-4">
         <h1
-          className="text-center"
+          className="text-center leading-none"
           style={{
-            fontSize: "6em",
+            fontSize: "5.75em",
             fontFamily: "Berkshire Swash",
           }}
         >
