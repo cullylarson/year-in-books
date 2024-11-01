@@ -20,15 +20,21 @@ export const bookYearSchema = z.object({
   books: bookSchema.array(),
   /** Don't call staticFile on this. */
   audioPath: z.string(),
-  intro: z.object({
-    title: z.string(),
-    durationInFrames: z.number(),
-    transitionInFrames: z.number(),
-  }),
-  outro: z.object({
-    title: z.string(),
-    durationInFrames: z.number(),
-    transitionInFrames: z.number(),
+  scenes: z.object({
+    intro: z.object({
+      title: z.string(),
+      durationInFrames: z.number(),
+      transitionInFrames: z.number(),
+    }),
+    bookList: z.object({
+      durationInFrames: z.number(),
+      oneBookDurationInFrames: z.number(),
+    }),
+    outro: z.object({
+      title: z.string(),
+      durationInFrames: z.number(),
+      transitionInFrames: z.number(),
+    }),
   }),
   maxVolume: z.number().optional(),
 });
@@ -36,20 +42,12 @@ export const bookYearSchema = z.object({
 export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
   books,
   audioPath,
-  intro,
-  outro,
+  scenes,
   maxVolume = 0.4,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { durationInFrames } = useVideoConfig();
-
-  const bookListDurationInFrames =
-    durationInFrames -
-    intro.durationInFrames +
-    intro.transitionInFrames -
-    outro.durationInFrames +
-    outro.transitionInFrames;
 
   const volumeFadeOutInFrames = toFrames(5, fps);
   const volume = interpolate(
@@ -77,22 +75,36 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
         src={staticFile(audioPath)}
       />
       <TransitionSeries>
-        <TransitionSeries.Sequence durationInFrames={intro.durationInFrames}>
-          <Intro title={intro.title} books={books} />
+        <TransitionSeries.Sequence
+          durationInFrames={scenes.intro.durationInFrames}
+        >
+          <Intro title={scenes.intro.title} books={books} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({ durationInFrames: intro.transitionInFrames })}
+          timing={springTiming({
+            durationInFrames: scenes.intro.transitionInFrames,
+          })}
         />
-        <TransitionSeries.Sequence durationInFrames={bookListDurationInFrames}>
-          <BookList books={books} />
+        <TransitionSeries.Sequence
+          durationInFrames={scenes.bookList.durationInFrames}
+        >
+          <BookList
+            books={books}
+            oneBookDurationInFrames={scenes.bookList.oneBookDurationInFrames}
+            lastBookTransitionInFrames={scenes.outro.transitionInFrames}
+          />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
-          timing={springTiming({ durationInFrames: outro.transitionInFrames })}
+          timing={springTiming({
+            durationInFrames: scenes.outro.transitionInFrames,
+          })}
         />
-        <TransitionSeries.Sequence durationInFrames={outro.durationInFrames}>
-          <Outro title={outro.title} books={books} />
+        <TransitionSeries.Sequence
+          durationInFrames={scenes.outro.durationInFrames}
+        >
+          <Outro title={scenes.outro.title} books={books} />
         </TransitionSeries.Sequence>
       </TransitionSeries>
     </AbsoluteFill>

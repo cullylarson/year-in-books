@@ -173,13 +173,18 @@ const introTransitionInFrames = toFrames(2, fps);
 const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
 
 const outroTransitionInFrames = toFrames(2, fps);
-const outroDurationInFrames = toFrames(10, fps) + outroTransitionInFrames;
+const outroDurationInFrames = toFrames(10, fps);
 
-const durationInFrames = Math.ceil(
-  books.length * toFrames(3.8, fps) +
-    introDurationInFrames +
-    outroDurationInFrames,
-);
+const individualBookDurationInFrames = toFrames(3.8, fps);
+const bookListDurationInFrames =
+  books.length * individualBookDurationInFrames + outroTransitionInFrames;
+
+const durationInFrames =
+  introDurationInFrames +
+  bookListDurationInFrames +
+  outroDurationInFrames -
+  introTransitionInFrames -
+  outroTransitionInFrames;
 
 export function Books2024Composition() {
   return (
@@ -194,15 +199,21 @@ export function Books2024Composition() {
       defaultProps={{
         books,
         audioPath: "music/lofi-song-room-by-lofium-242714.mp3",
-        intro: {
-          title: "2024 in Books",
-          durationInFrames: introDurationInFrames,
-          transitionInFrames: introTransitionInFrames,
-        },
-        outro: {
-          title: "2024 in Books",
-          durationInFrames: outroDurationInFrames,
-          transitionInFrames: outroTransitionInFrames,
+        scenes: {
+          intro: {
+            title: "2024 in Books",
+            durationInFrames: introDurationInFrames,
+            transitionInFrames: introTransitionInFrames,
+          },
+          bookList: {
+            oneBookDurationInFrames: individualBookDurationInFrames,
+            durationInFrames: bookListDurationInFrames,
+          },
+          outro: {
+            title: "2024 in Books",
+            durationInFrames: outroDurationInFrames,
+            transitionInFrames: outroTransitionInFrames,
+          },
         },
       }}
     />

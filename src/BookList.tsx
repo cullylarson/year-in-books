@@ -7,35 +7,46 @@ import { Book, OneBook } from "./OneBook";
 
 type BookListProps = {
   books: Book[];
+  lastBookTransitionInFrames: number;
+  oneBookDurationInFrames: number;
 };
 
-// TODO the last book scene is too short, and made shorter because of the
-// transition overlap
+// TODO You can see the intro "Year in Books" at the end of the transition,
+// while you see the first video. Maybe use linearTiming
 
-export function BookList({ books }: BookListProps) {
+export function BookList({
+  books,
+  oneBookDurationInFrames,
+  lastBookTransitionInFrames,
+}: BookListProps) {
   const { fps } = useVideoConfig();
-  const { durationInFrames } = useVideoConfig();
 
   const transitionInFrames = toFrames(1.5, fps);
-  const numBooks = books.length;
-  const durationPerBook = Math.floor(
-    durationInFrames / numBooks + transitionInFrames,
-  );
 
   return (
     <AbsoluteFill className="bg-white">
       <TransitionSeries>
-        {books.map((book, i) => (
-          <Fragment key={i}>
-            <TransitionSeries.Sequence durationInFrames={durationPerBook}>
-              <OneBook {...book} />
-            </TransitionSeries.Sequence>
-            <TransitionSeries.Transition
-              presentation={fade()}
-              timing={springTiming({ durationInFrames: transitionInFrames })}
-            />
-          </Fragment>
-        ))}
+        {books.map((book, i) => {
+          const isLastBook = i === books.length - 1;
+
+          const bookDurationInFrames = isLastBook
+            ? oneBookDurationInFrames + lastBookTransitionInFrames
+            : oneBookDurationInFrames + transitionInFrames;
+
+          return (
+            <Fragment key={i}>
+              <TransitionSeries.Sequence
+                durationInFrames={bookDurationInFrames}
+              >
+                <OneBook {...book} />
+              </TransitionSeries.Sequence>
+              <TransitionSeries.Transition
+                presentation={fade()}
+                timing={springTiming({ durationInFrames: transitionInFrames })}
+              />
+            </Fragment>
+          );
+        })}
       </TransitionSeries>
     </AbsoluteFill>
   );
