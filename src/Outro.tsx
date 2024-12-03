@@ -38,6 +38,7 @@ export function Outro({ title, books }: OutroProps) {
   const numBooks = books.length;
   const numPages = books.reduce((acc, book) => acc + book.numPages, 0);
   const pagesPerDay = Math.round(numPages / 365);
+  const daysPerBook = Math.round(365 / numBooks);
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-900 text-white">
@@ -69,7 +70,11 @@ export function Outro({ title, books }: OutroProps) {
             <span className="font-bold">
               {new Intl.NumberFormat("en-US").format(pagesPerDay)}
             </span>{" "}
-            page{pluralEnd(pagesPerDay)} per day.
+            page{pluralEnd(pagesPerDay)} per day.{" "}
+            <span className="font-bold">
+              {new Intl.NumberFormat("en-US").format(daysPerBook)}
+            </span>{" "}
+            day{pluralEnd(daysPerBook)} per book.
           </div>
         </div>
       </div>
