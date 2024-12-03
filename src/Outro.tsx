@@ -19,7 +19,7 @@ function BookSummary({ book }: { book: Book }) {
       </div>
       <div className="text-gray-400" style={{ fontSize: "1.1em" }}>
         {format(book.dateFinished, "LLLL do")} /{" "}
-        {new Intl.NumberFormat("en-US").format(book.numPages)} pp.
+        {new Intl.NumberFormat("en-US").format(book.numPages)} p.
       </div>
     </div>
   );
