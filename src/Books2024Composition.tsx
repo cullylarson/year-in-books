@@ -167,8 +167,16 @@ const books: Book[] = [
     imagePath: "2024/20-gravitys-rainbow.jpeg",
     title: "Gravity's Rainbow",
     author: "Thomas Pynchon",
-    dateFinished: getDate("2024-12-30"),
+    dateFinished: getDate("2024-12-15"),
     numPages: 776,
+  },
+  {
+    num: 21,
+    imagePath: "2024/21-middlesex.jpeg",
+    title: "Middlesex",
+    author: "Jeffrey Eugenides",
+    dateFinished: getDate("2024-12-30"),
+    numPages: 529,
   },
 ];
 
