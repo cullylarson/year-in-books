@@ -15,6 +15,7 @@ import { linearTiming, TransitionSeries } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { Intro } from "./Intro";
 import { Outro } from "./Outro";
+import { Stacks } from "./Stacks";
 
 export const bookYearSchema = z.object({
   books: bookSchema.array(),
@@ -30,6 +31,14 @@ export const bookYearSchema = z.object({
       durationInFrames: z.number(),
       oneBookDurationInFrames: z.number(),
     }),
+    stacks: z
+      .object({
+        durationInFrames: z.number(),
+        transitionInFrames: z.number(),
+        oneImageDurationInFrames: z.number(),
+        imagePaths: z.array(z.string()),
+      })
+      .optional(),
     outro: z.object({
       title: z.string(),
       durationInFrames: z.number(),
@@ -92,9 +101,34 @@ export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
           <BookList
             books={books}
             oneBookDurationInFrames={scenes.bookList.oneBookDurationInFrames}
-            nextSceneTransitionInFrames={scenes.outro.transitionInFrames}
+            nextSceneTransitionInFrames={
+              scenes.stacks
+                ? scenes.stacks.durationInFrames
+                : scenes.outro.transitionInFrames
+            }
           />
         </TransitionSeries.Sequence>
+        {scenes.stacks ? (
+          <>
+            <TransitionSeries.Transition
+              presentation={fade()}
+              timing={linearTiming({
+                durationInFrames: scenes.stacks.transitionInFrames,
+              })}
+            />
+            <TransitionSeries.Sequence
+              durationInFrames={scenes.stacks.durationInFrames}
+            >
+              <Stacks
+                imagePaths={scenes.stacks.imagePaths}
+                oneImageDurationInFrames={
+                  scenes.stacks.oneImageDurationInFrames
+                }
+                nextSceneTransitionInFrames={scenes.stacks.durationInFrames}
+              />
+            </TransitionSeries.Sequence>
+          </>
+        ) : null}
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({

@@ -188,6 +188,10 @@ const books: Book[] = [
   },
 ];
 
+const stackImagePaths = ["2024/stack-01.jpeg"];
+
+const haveStacks = stackImagePaths.length > 0;
+
 const fps = 30;
 
 const ratio = 1080 / 1440;
@@ -200,15 +204,25 @@ const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
 const outroTransitionInFrames = toFrames(0.75, fps);
 const outroDurationInFrames = toFrames(10, fps);
 
+const stacksTransitionInFrames = haveStacks ? toFrames(0.75, fps) : 0;
+const individualStackDurationInFrames = toFrames(5.0, fps);
+const stacksDurationInFrames = haveStacks
+  ? stackImagePaths.length * individualStackDurationInFrames +
+    outroTransitionInFrames
+  : 0;
+
 const individualBookDurationInFrames = toFrames(3.8, fps);
 const bookListDurationInFrames =
-  books.length * individualBookDurationInFrames + outroTransitionInFrames;
+  books.length * individualBookDurationInFrames +
+  (haveStacks ? stacksTransitionInFrames : outroTransitionInFrames);
 
 const durationInFrames =
   introDurationInFrames +
   bookListDurationInFrames +
+  stacksDurationInFrames +
   outroDurationInFrames -
   introTransitionInFrames -
+  stacksTransitionInFrames -
   outroTransitionInFrames;
 
 export function Books2024Composition() {
@@ -234,6 +248,14 @@ export function Books2024Composition() {
             oneBookDurationInFrames: individualBookDurationInFrames,
             durationInFrames: bookListDurationInFrames,
           },
+          stacks: haveStacks
+            ? {
+                imagePaths: stackImagePaths,
+                durationInFrames: stacksDurationInFrames,
+                transitionInFrames: stacksTransitionInFrames,
+                oneImageDurationInFrames: individualStackDurationInFrames,
+              }
+            : undefined,
           outro: {
             title: "2024 in Books",
             durationInFrames: outroDurationInFrames,
