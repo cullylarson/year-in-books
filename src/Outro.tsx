@@ -8,16 +8,16 @@ function BookSummary({ book }: { book: Book }) {
         <span
           className="font-bold"
           style={{
-            fontSize: "1.6em",
+            fontSize: "1.5em",
           }}
         >
           {book.title}
         </span>{" "}
       </div>
-      <div className="text-gray-200" style={{ fontSize: "1.1em" }}>
+      <div className="text-gray-200" style={{ fontSize: "1.0em" }}>
         by {book.author}
       </div>
-      <div className="text-gray-400" style={{ fontSize: "1.0em" }}>
+      <div className="text-gray-400" style={{ fontSize: "0.9em" }}>
         {format(book.dateFinished, "LLLL do")} /{" "}
         {new Intl.NumberFormat("en-US").format(book.numPages)} p.
       </div>

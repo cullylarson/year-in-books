@@ -175,8 +175,16 @@ const books: Book[] = [
     imagePath: "2024/21-middlesex.jpeg",
     title: "Middlesex",
     author: "Jeffrey Eugenides",
-    dateFinished: getDate("2024-12-30"),
+    dateFinished: getDate("2024-12-26"),
     numPages: 529,
+  },
+  {
+    num: 22,
+    imagePath: "2024/22-the-plains.jpeg",
+    title: "The Plains",
+    author: "Gerald Murnane",
+    dateFinished: getDate("2024-12-28"),
+    numPages: 174,
   },
 ];
 
