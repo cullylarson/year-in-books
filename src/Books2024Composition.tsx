@@ -195,7 +195,7 @@ const haveStacks = stackImagePaths.length > 0;
 const fps = 30;
 
 const ratio = 1080 / 1440;
-const height = 700;
+const height = 1440;
 const width = clampEven(height * ratio);
 
 const introTransitionInFrames = toFrames(0.75, fps);

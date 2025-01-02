@@ -3,21 +3,21 @@ import { Book } from "./OneBook";
 
 function BookSummary({ book }: { book: Book }) {
   return (
-    <div className="break-inside-avoid mb-2">
+    <div className="break-inside-avoid mb-3">
       <div>
         <span
           className="font-bold"
           style={{
-            fontSize: "1.5em",
+            fontSize: "3.1em",
           }}
         >
           {book.title}
         </span>{" "}
       </div>
-      <div className="text-gray-200" style={{ fontSize: "1.0em" }}>
+      <div className="text-gray-200" style={{ fontSize: "2.6em" }}>
         by {book.author}
       </div>
-      <div className="text-gray-400" style={{ fontSize: "0.9em" }}>
+      <div className="text-gray-400" style={{ fontSize: "2.5em" }}>
         {format(book.dateFinished, "LLLL do")} /{" "}
         {new Intl.NumberFormat("en-US").format(book.numPages)} p.
       </div>
@@ -43,11 +43,11 @@ export function Outro({ title, books }: OutroProps) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-900 text-white">
-      <div className="p-6 flex flex-col gap-4">
+      <div className="p-6 flex flex-col gap-5">
         <h1
           className="text-center leading-none"
           style={{
-            fontSize: "5.55em",
+            fontSize: "9.55em",
             fontFamily: "Berkshire Swash",
           }}
         >
@@ -58,7 +58,10 @@ export function Outro({ title, books }: OutroProps) {
             <BookSummary key={i} book={book} />
           ))}
         </div>
-        <div className="bg-gray-800 rounded p-3" style={{ fontSize: "1.2em" }}>
+        <div
+          className="bg-gray-800 rounded-lg p-3"
+          style={{ fontSize: "2.5em" }}
+        >
           <div>
             <span className="font-bold">
               {new Intl.NumberFormat("en-US").format(numBooks)}

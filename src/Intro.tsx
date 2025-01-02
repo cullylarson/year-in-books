@@ -78,11 +78,19 @@ export function Intro({ title, books }: IntroProps) {
         ))}
       </div>
       <div className="relative">
-        <div className="absolute inset-0 bg-black blur-lg" />
-        <h1
-          className="relative shadow-md text-gray-50 bold"
+        <div
+          className="absolute bg-black blur-3xl"
           style={{
-            fontSize: "8.5em",
+            left: "-10%",
+            right: "-10%",
+            top: "0",
+            bottom: "0",
+          }}
+        />
+        <h1
+          className="relative text-gray-50 bold"
+          style={{
+            fontSize: "13.5em",
             fontFamily: "Berkshire Swash",
           }}
         >
