@@ -5,24 +5,24 @@
   "repository": {},
   "license": "MIT",
   "dependencies": {
-    "@remotion/cli": "4.0.223",
-    "@remotion/google-fonts": "^4.0.223",
-    "@remotion/tailwind": "4.0.223",
-    "@remotion/transitions": "^4.0.223",
-    "@remotion/zod-types": "4.0.223",
+    "@remotion/cli": "4.0.244",
+    "@remotion/google-fonts": "^4.0.244",
+    "@remotion/tailwind": "4.0.244",
+    "@remotion/transitions": "^4.0.244",
+    "@remotion/zod-types": "4.0.244",
     "date-fns": "^4.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "remotion": "4.0.223",
+    "remotion": "4.0.244",
     "zod": "3.22.3"
   },
   "devDependencies": {
-    "@remotion/eslint-config": "4.0.223",
+    "@remotion/eslint-config": "4.0.244",
     "@types/react": "18.3.1",
-    "@types/web": "0.0.166",
+    "@types/web": "0.0.188",
     "eslint": "8.56.0",
-    "prettier": "^3.3.3",
-    "typescript": "5.5.4"
+    "prettier": "^3.4.2",
+    "typescript": "5.7.2"
   },
   "scripts": {
     "start": "remotion studio",

@@ -63,13 +63,13 @@ export function OneBook({ title, author, imagePath, num }: Book) {
           <div
             className="bg-gray-900 text-gray-50 text-center"
             style={{
-              padding: "2em",
-              borderRadius: "0.6em",
+              padding: "3em",
+              borderRadius: "1.3em",
             }}
           >
             <h1
               style={{
-                fontSize: "3.1em",
+                fontSize: "4.1em",
               }}
             >
               {title}
@@ -77,7 +77,7 @@ export function OneBook({ title, author, imagePath, num }: Book) {
             <h2
               className="text-right"
               style={{
-                fontSize: "2.1em",
+                fontSize: "3.1em",
               }}
             >
               by {author}
@@ -89,7 +89,7 @@ export function OneBook({ title, author, imagePath, num }: Book) {
                 padding: "0.3em 0.7em",
                 top: "-0.8em",
                 right: "-0.8em",
-                fontSize: "1.4em",
+                fontSize: "2.1em",
               }}
             >
               #{num}
