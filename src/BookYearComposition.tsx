@@ -14,12 +14,14 @@ function calculateCompositionDurations({
   sizeRatio = 1080 / 1440,
   numStackImages,
   numBooks,
+  individualBookDurationInSeconds = 3.8,
 }: {
   fps?: number;
   sizeRatio?: number;
   height: number;
   numStackImages: number;
   numBooks: number;
+  individualBookDurationInSeconds?: number;
 }): {
   fps: number;
   width: number;
@@ -51,7 +53,10 @@ function calculateCompositionDurations({
     ? numStackImages * individualStackDurationInFrames + outroTransitionInFrames
     : 0;
 
-  const individualBookDurationInFrames = toFrames(3.8, fps);
+  const individualBookDurationInFrames = toFrames(
+    individualBookDurationInSeconds,
+    fps,
+  );
   const bookListDurationInFrames =
     numBooks * individualBookDurationInFrames +
     (haveStacks ? stacksTransitionInFrames : outroTransitionInFrames);
@@ -88,7 +93,15 @@ export const BookYearComposition: React.FC<{
   books: Book[];
   audioPath: string;
   stackImagePaths?: string[];
-}> = ({ id, title, books, audioPath, stackImagePaths = [] }) => {
+  individualBookDurationInSeconds?: number;
+}> = ({
+  id,
+  title,
+  books,
+  audioPath,
+  stackImagePaths = [],
+  individualBookDurationInSeconds,
+}) => {
   const haveStacks = stackImagePaths.length > 0;
 
   const {
@@ -110,6 +123,7 @@ export const BookYearComposition: React.FC<{
     height: 1440,
     numStackImages: stackImagePaths.length,
     numBooks: books.length,
+    individualBookDurationInSeconds,
   });
 
   return (
