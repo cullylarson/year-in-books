@@ -48,7 +48,9 @@ export const bookYearSchema = z.object({
   maxVolume: z.number().optional(),
 });
 
-export const BookYear: React.FC<z.infer<typeof bookYearSchema>> = ({
+export type BookYearProps = z.infer<typeof bookYearSchema>;
+
+export const BookYear: React.FC<BookYearProps> = ({
   books,
   audioPath,
   scenes,

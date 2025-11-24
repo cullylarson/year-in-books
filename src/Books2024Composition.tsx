@@ -1,13 +1,6 @@
-import { Composition } from "remotion";
-import * as Poppins from "@remotion/google-fonts/Poppins";
-import * as BerkshireSwash from "@remotion/google-fonts/BerkshireSwash";
 import { Book } from "./OneBook";
-import { BookYear, bookYearSchema } from "./BookYear";
 import { getDate } from "./lib/dates";
-import { calculateCompositionDurations } from "./lib/composition";
-
-Poppins.loadFont();
-BerkshireSwash.loadFont();
+import { BookYearComposition } from "./BookYearComposition";
 
 const books: Book[] = [
   {
@@ -190,68 +183,13 @@ const books: Book[] = [
 
 const stackImagePaths = ["2024/stack-01.jpeg"];
 
-const numStackImages = stackImagePaths.length;
-
-const haveStacks = numStackImages > 0;
-
-const {
-  fps,
-  width,
-  height,
-  durationInFrames,
-  introDurationInFrames,
-  introTransitionInFrames,
-  individualBookDurationInFrames,
-  bookListDurationInFrames,
-  stacksDurationInFrames,
-  stacksTransitionInFrames,
-  individualStackDurationInFrames,
-  outroDurationInFrames,
-  outroTransitionInFrames,
-} = calculateCompositionDurations({
-  fps: 30,
-  height: 1440,
-  numStackImages: stackImagePaths.length,
-  numBooks: books.length,
-});
 export function Books2024Composition() {
   return (
-    <Composition
+    <BookYearComposition
       id="2024"
-      component={BookYear}
-      durationInFrames={durationInFrames}
-      fps={fps}
-      height={height}
-      width={width}
-      schema={bookYearSchema}
-      defaultProps={{
-        books,
-        audioPath: "music/lofi-song-room-by-lofium-242714.mp3",
-        scenes: {
-          intro: {
-            title: "2024 in Books",
-            durationInFrames: introDurationInFrames,
-            transitionInFrames: introTransitionInFrames,
-          },
-          bookList: {
-            oneBookDurationInFrames: individualBookDurationInFrames,
-            durationInFrames: bookListDurationInFrames,
-          },
-          stacks: haveStacks
-            ? {
-                imagePaths: stackImagePaths,
-                durationInFrames: stacksDurationInFrames,
-                transitionInFrames: stacksTransitionInFrames,
-                oneImageDurationInFrames: individualStackDurationInFrames,
-              }
-            : undefined,
-          outro: {
-            title: "2024 in Books",
-            durationInFrames: outroDurationInFrames,
-            transitionInFrames: outroTransitionInFrames,
-          },
-        },
-      }}
+      books={books}
+      audioPath="music/lofi-song-room-by-lofium-242714.mp3"
+      stackImagePaths={stackImagePaths}
     />
   );
 }
