@@ -1,10 +1,10 @@
+import { Composition } from "remotion";
 import * as Poppins from "@remotion/google-fonts/Poppins";
 import * as BerkshireSwash from "@remotion/google-fonts/BerkshireSwash";
 import { Book } from "./OneBook";
 import { BookYear, bookYearSchema } from "./BookYear";
-import { clampEven, toFrames } from "./lib/frames";
-import { Composition } from "remotion";
 import { getDate } from "./lib/dates";
+import { calculateCompositionDurations } from "./lib/composition";
 
 Poppins.loadFont();
 BerkshireSwash.loadFont();
@@ -190,41 +190,30 @@ const books: Book[] = [
 
 const stackImagePaths = ["2024/stack-01.jpeg"];
 
-const haveStacks = stackImagePaths.length > 0;
+const numStackImages = stackImagePaths.length;
 
-const fps = 30;
+const haveStacks = numStackImages > 0;
 
-const ratio = 1080 / 1440;
-const height = 1440;
-const width = clampEven(height * ratio);
-
-const introTransitionInFrames = toFrames(0.75, fps);
-const introDurationInFrames = toFrames(4, fps) + introTransitionInFrames;
-
-const outroTransitionInFrames = toFrames(0.75, fps);
-const outroDurationInFrames = toFrames(10, fps);
-
-const stacksTransitionInFrames = haveStacks ? toFrames(0.75, fps) : 0;
-const individualStackDurationInFrames = toFrames(5.0, fps);
-const stacksDurationInFrames = haveStacks
-  ? stackImagePaths.length * individualStackDurationInFrames +
-    outroTransitionInFrames
-  : 0;
-
-const individualBookDurationInFrames = toFrames(3.8, fps);
-const bookListDurationInFrames =
-  books.length * individualBookDurationInFrames +
-  (haveStacks ? stacksTransitionInFrames : outroTransitionInFrames);
-
-const durationInFrames =
-  introDurationInFrames +
-  bookListDurationInFrames +
-  stacksDurationInFrames +
-  outroDurationInFrames -
-  introTransitionInFrames -
-  stacksTransitionInFrames -
-  outroTransitionInFrames;
-
+const {
+  fps,
+  width,
+  height,
+  durationInFrames,
+  introDurationInFrames,
+  introTransitionInFrames,
+  individualBookDurationInFrames,
+  bookListDurationInFrames,
+  stacksDurationInFrames,
+  stacksTransitionInFrames,
+  individualStackDurationInFrames,
+  outroDurationInFrames,
+  outroTransitionInFrames,
+} = calculateCompositionDurations({
+  fps: 30,
+  height: 1440,
+  numStackImages: stackImagePaths.length,
+  numBooks: books.length,
+});
 export function Books2024Composition() {
   return (
     <Composition
