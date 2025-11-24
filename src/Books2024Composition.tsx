@@ -187,6 +187,7 @@ export function Books2024Composition() {
   return (
     <BookYearComposition
       id="2024"
+      title="2024 in Books"
       books={books}
       audioPath="music/lofi-song-room-by-lofium-242714.mp3"
       stackImagePaths={stackImagePaths}

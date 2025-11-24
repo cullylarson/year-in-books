@@ -84,10 +84,11 @@ function calculateCompositionDurations({
 
 export const BookYearComposition: React.FC<{
   id: string;
+  title: string;
   books: Book[];
   audioPath: string;
   stackImagePaths?: string[];
-}> = ({ id, books, audioPath, stackImagePaths = [] }) => {
+}> = ({ id, title, books, audioPath, stackImagePaths = [] }) => {
   const haveStacks = stackImagePaths.length > 0;
 
   const {
@@ -125,7 +126,7 @@ export const BookYearComposition: React.FC<{
         audioPath,
         scenes: {
           intro: {
-            title: "2024 in Books",
+            title,
             durationInFrames: introDurationInFrames,
             transitionInFrames: introTransitionInFrames,
           },
@@ -142,7 +143,7 @@ export const BookYearComposition: React.FC<{
               }
             : undefined,
           outro: {
-            title: "2024 in Books",
+            title,
             durationInFrames: outroDurationInFrames,
             transitionInFrames: outroTransitionInFrames,
           },
