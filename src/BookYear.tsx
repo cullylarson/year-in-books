@@ -7,12 +7,12 @@ import {
   interpolate,
   Easing,
 } from "remotion";
+import { linearTiming, TransitionSeries } from "@remotion/transitions";
+import { fade } from "@remotion/transitions/fade";
 import { z } from "zod";
 import { toFrames } from "./lib/frames";
 import { bookSchema } from "./OneBook";
 import { BookList } from "./BookList";
-import { linearTiming, TransitionSeries } from "@remotion/transitions";
-import { fade } from "@remotion/transitions/fade";
 import { Intro } from "./Intro";
 import { Outro } from "./Outro";
 import { Stacks } from "./Stacks";

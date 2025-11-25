@@ -367,7 +367,7 @@ export function Books2025Composition() {
       books={books}
       audioPath="music/background-music-438663.mp3"
       stackImagePaths={stackImagePaths}
-      individualBookDurationInSeconds={2.7}
+      individualBookDurationInSeconds={2.6}
     />
   );
 }
