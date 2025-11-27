@@ -355,6 +355,14 @@ const books: Book[] = [
     dateFinished: getDate("2025-11-23"),
     numPages: 607,
   },
+  {
+    num: 45,
+    imagePath: "2025/45-wittgensteins-nephew.jpg",
+    title: "Wittgenstein's Nephew",
+    author: "Thomas Bernhard",
+    dateFinished: getDate("2025-11-26"),
+    numPages: 101,
+  },
 ];
 
 const stackImagePaths: string[] = [];
