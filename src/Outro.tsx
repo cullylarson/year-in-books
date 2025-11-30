@@ -61,7 +61,7 @@ function getFontSizes(numBooks: number): {
       summary: "2.3em",
       columnsClassName: "columns-3 gap-4",
     };
-  } else {
+  } else if (numBooks <= 45) {
     return {
       heading: "6.7em",
       bookTitle: "2.3em",
@@ -69,6 +69,15 @@ function getFontSizes(numBooks: number): {
       bookDetails: "1.8em",
       summary: "2.3em",
       columnsClassName: "columns-3 gap-4",
+    };
+  } else {
+    return {
+      heading: "6.7em",
+      bookTitle: "2.3em",
+      bookAuthor: "1.9em",
+      bookDetails: "1.8em",
+      summary: "2.3em",
+      columnsClassName: "columns-4 gap-4",
     };
   }
 }
