@@ -363,6 +363,14 @@ const books: Book[] = [
     dateFinished: getDate("2025-11-26"),
     numPages: 101,
   },
+  {
+    num: 46,
+    imagePath: "2025/46-jayber-crow.jpg",
+    title: "Jayber Crow",
+    author: "Wendell Berry",
+    dateFinished: getDate("2025-11-30"),
+    numPages: 363,
+  },
 ];
 
 const stackImagePaths: string[] = [];
