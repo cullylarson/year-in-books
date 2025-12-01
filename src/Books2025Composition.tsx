@@ -166,7 +166,7 @@ const books: Book[] = [
   {
     num: 21,
     imagePath: "2025/21-song-for-the-unraveling-of-the-world.jpg",
-    title: "Song for the Unraveling of the World: Stories",
+    title: "Song for the Unraveling of the World",
     author: "Brian Evenson",
     dateFinished: getDate("2025-06-08"),
     numPages: 208,
