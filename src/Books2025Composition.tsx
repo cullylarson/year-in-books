@@ -371,6 +371,30 @@ const books: Book[] = [
     dateFinished: getDate("2025-11-30"),
     numPages: 363,
   },
+  {
+    num: 47,
+    imagePath: "2025/47-trout-fishing-in-america.jpg",
+    title: "Trout Fishing in America",
+    author: "Richard Brautigan",
+    dateFinished: getDate("2025-12-05"),
+    numPages: 112,
+  },
+  {
+    num: 48,
+    imagePath: "2025/48-solaris.jpg",
+    title: "Solaris",
+    author: "Stanisław Lem",
+    dateFinished: getDate("2025-12-10"),
+    numPages: 224,
+  },
+  {
+    num: 49,
+    imagePath: "2025/49-where-the-air-is-clear.jpg",
+    title: "Where the Air is Clear",
+    author: "Carlos Fuentes",
+    dateFinished: getDate("2025-12-26"),
+    numPages: 224,
+  },
 ];
 
 const stackImagePaths: string[] = [];
