@@ -395,6 +395,14 @@ const books: Book[] = [
     dateFinished: getDate("2025-12-26"),
     numPages: 224,
   },
+  {
+    num: 50,
+    imagePath: "2025/50-amulet.jpg",
+    title: "Amulet",
+    author: "Roberto Bolaño",
+    dateFinished: getDate("2025-12-29"),
+    numPages: 184,
+  },
 ];
 
 const stackImagePaths: string[] = [];
