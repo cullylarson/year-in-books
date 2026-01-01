@@ -403,6 +403,14 @@ const books: Book[] = [
     dateFinished: getDate("2025-12-29"),
     numPages: 184,
   },
+  {
+    num: 51,
+    imagePath: "2025/51-battles-in-the-desert.jpg",
+    title: "Battles in the Desert",
+    author: "José Emilio Pacheco",
+    dateFinished: getDate("2025-12-30"),
+    numPages: 80,
+  },
 ];
 
 const stackImagePaths: string[] = [];
