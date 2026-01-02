@@ -13,6 +13,15 @@ npm start
 npx remotion render
 ```
 
+## Share on Instagram
+
+- Render in Remotion.
+- Upload the video to IG on desktop.
+- After selecting the file, click the little `<>` icon in the lower left corner
+  of the video and then select the "9:16" aspect ratio. If you don't, IG will
+  crop the video.
+- Complete.
+
 ## Resources
 
 - Music:
