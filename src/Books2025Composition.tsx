@@ -413,7 +413,7 @@ const books: Book[] = [
   },
 ];
 
-const stackImagePaths: string[] = [];
+const stackImagePaths = ["2025/stack-full.jpg"];
 
 export function Books2025Composition() {
   return (
